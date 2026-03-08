@@ -12,8 +12,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/product", async (req, res) => {
-  const products = await product.findAll();
-  response(res, true, 200, products, "Products retrieved successfully");
+  const payload = await product.findAll();
+  response(res, true, 200, payload, "Products retrieved successfully");
 });
 
 app.get("/product/search", async (req, res) => {
@@ -30,7 +30,12 @@ app.get("/product/search", async (req, res) => {
     products = rows;
   }
 
-  response(res, true, 200, products, message);
+  const payload = {
+    payload: products,
+    generatedText: message,
+  };
+
+  response(res, true, 200, payload, message);
 });
 
 app.listen(process.env.PORT, () => {

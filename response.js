@@ -6,17 +6,18 @@ export default async function response(
   message,
 ) {
   const getMeta = () => {
-    return Date.now();
+    const date = new Date().toISOString();
+    return date;
   };
 
-  const payload = {
+  const responseSchema = {
     success: success,
     message: message,
-    data: data,
+    payload: data,
     metadata: {
       timestamp: getMeta(),
     },
   };
 
-  res.status(statusCode).json(payload);
+  res.status(statusCode).json(responseSchema);
 }
