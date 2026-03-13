@@ -1,0 +1,10 @@
+http://localhost:3000/products
+
+###
+
+http://localhost:3000/products/search
+Content-Type: application/json
+
+{
+  "prompt": "I'd like a drink below 15 dollars"
+}

@@ -11,13 +11,13 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/product", async (req, res) => {
+app.get("/products", async (req, res) => {
   const payload = await product.findAll();
   response(res, true, 200, payload, "Products retrieved successfully");
 });
 
-app.get("/product/search", async (req, res) => {
-  const prompt = "I'm looking for foods around 1 to 3 dollars";
+app.get("/products/search", async (req, res) => {
+  const { prompt } = req.body;
   const AIresponse = await gemini(prompt);
   const { sql = null, message } = AIresponse;
 
@@ -31,11 +31,11 @@ app.get("/product/search", async (req, res) => {
   }
 
   const payload = {
-    payload: products,
+    data: products,
     generatedText: message,
   };
 
-  response(res, true, 200, payload, message);
+  response(res, true, 200, payload, "Product filterred successfully");
 });
 
 app.listen(process.env.PORT, () => {
